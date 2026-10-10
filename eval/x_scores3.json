@@ -1,0 +1,114 @@
+[
+  {
+    "text": "Bart @bzagrodzki · 2h who designed Github dashboard that's (almost) entirely use",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Supermicro @Supermicro Ad Scale AI with Supermicro's Data Center Building Block ",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Rahul Bhosale @0xBhosale · 3h taste is built, not downloaded → https://rahul.des",
+    "slop_p": 1,
+    "kind": {
+      "label": "ai_thread",
+      "p": 1
+    }
+  },
+  {
+    "text": "Bidyut @BidyutKundu12 · 23h This is insane https://opensourceui.in",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Paolo Rosson @redp314 · 6h can @typesafeai Jev count the r's in strawberry? no. ",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "vogel @ryanvogel · 14h it took them 4 years to change some colors & move the inp",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Kushagra @Kushagratw Ad Hiranandani's Biggest Launch Of Alibaug Is Here With An ",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "Randall Kanna Franson @RandallKanna · Sep 20 https://try.cloudflare.com",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.85
+    }
+  },
+  {
+    "text": "solidSF @solidSF · 8h nobody is asking us to do these, we just love to compete Q",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Varun Arya @balloon_arya · 1h Been there, done that. Hate ts Quote I am done wit",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Kalash @kalashvasaniya · 3h in jan, i was looking for a product hunt alternative",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Token Harbor @TokenHarborAI Ad DeepSeek V4.1 Flash is free to start on Token Har",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "argofowl @argofowl · 4h my current agents.md that made astra work well still a w",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Atenov int. @Atenov_D · 17h A CHINESE STARTUP IS GIVING AWAY 100M TOKENS AND 80 ",
+    "slop_p": 0.99,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 1
+    }
+  }
+]

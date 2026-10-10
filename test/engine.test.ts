@@ -121,6 +121,7 @@ test("engine retries malformed output and sends upstream authentication", async 
     });
   };
   const settings = loadSettings({
+    upstream: "http://127.0.0.1:8000",
     upstreamApiKey: "test-only-secret",
     malformedRetries: 1,
   });

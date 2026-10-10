@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LocalJev Lab</title>
+<style>
+  :root { color-scheme: dark; --bg:#0d1117; --panel:#161b22; --border:#30363d; --fg:#e6edf3; --muted:#8b949e; --acc:#2f81f7; --ok:#3fb950; --warn:#d29922; --err:#f85149; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 -apple-system,system-ui,sans-serif; }
+  header { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:16px; margin:0; }
+  header .pill { font-size:12px; padding:2px 10px; border-radius:20px; border:1px solid var(--border); color:var(--muted); }
+  header .pill.ok { color:var(--ok); border-color:var(--ok); }
+  header .pill.bad { color:var(--err); border-color:var(--err); }
+  main { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:16px 20px; max-width:1200px; margin:0 auto; }
+  @media (max-width:900px){ main{grid-template-columns:1fr;} }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; }
+  label { display:block; font-size:12px; color:var(--muted); margin:10px 0 4px; }
+  input[type=text], textarea, select { width:100%; background:#0d1117; color:var(--fg); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font:13px/1.5 ui-monospace,monospace; }
+  textarea { resize:vertical; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  button { background:var(--acc); color:#fff; border:0; border-radius:8px; padding:8px 14px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; border:1px solid var(--border); color:var(--fg); font-weight:400; }
+  button:disabled { opacity:.5; cursor:wait; }
+  .ans { border:1px solid var(--border); border-radius:8px; padding:10px; margin:10px 0; }
+  .ans h3 { margin:0 0 6px; font-size:14px; }
+  .bar { height:8px; background:#0d1117; border-radius:4px; overflow:hidden; margin:3px 0 8px; }
+  .bar > div { height:100%; background:var(--acc); }
+  .kv { font-size:12px; color:var(--muted); }
+  pre { background:#0d1117; border:1px solid var(--border); border-radius:8px; padding:10px; overflow:auto; max-height:360px; font-size:12px; }
+  .err { color:var(--err); white-space:pre-wrap; }
+  .meta { font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>LocalJev Lab</h1>
+  <span id="status" class="pill">checking…</span>
+  <span id="models" class="meta"></span>
+</header>
+<main>
+  <div class="card">
+    <h2>Request</h2>
+    <label>Server</label>
+    <input id="server" type="text" value="http://127.0.0.1:8080">
+    <label>Model</label>
+    <input id="model" type="text" value="jev-latest">
+    <label>State (string)</label>
+    <textarea id="state" rows="4">Hi, I have been trying to connect Stripe but keep getting a 403 error.</textarea>
+    <label>Questions (JSON)</label>
+    <textarea id="questions" rows="16"></textarea>
+    <div class="row">
+      <button id="send">Decide</button>
+      <button class="ghost" data-preset="support">Support triage</button>
+      <button class="ghost" data-preset="billing">Billing check</button>
+      <button class="ghost" data-preset="slop">Slop check</button>
+    </div>
+    <div class="row"><span id="timing" class="meta"></span></div>
+  </div>
+  <div class="card">
+    <h2>Answers</h2>
+    <div id="answers"><p class="meta">No decision yet. Hit Decide.</p></div>
+    <h2 style="margin-top:16px">Raw</h2>
+    <pre id="raw">—</pre>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const PRESETS = {
+  support: {
+    state: "Hi, I have been trying to connect Stripe but keep getting a 403 error.",
+    questions: {
+      department: { type: "choice", instructions: "Which team should handle this?", criteria: { billing: "Payment or subscription issues", technical: "Bugs or integration problems", sales: "Pricing or account questions" } },
+      frustration: { type: "score", instructions: "How frustrated does the customer appear?", criteria: ["Calm", "Frustrated but civil", "Very angry"] },
+      urgent: { type: "noul", instructions: "Does this require an immediate response?" }
+    }
+  },
+  billing: {
+    state: "I was charged twice this month.",
+    questions: { billing: { type: "noul", instructions: "Is this a billing issue?" } }
+  },
+  slop: {
+    state: "50 legendary internet rabbit holes you can spend hours exploring. Watch the world via live satellite imagery!",
+    questions: {
+      slop: { type: "noul", instructions: "Is this AI slop / engagement bait?" },
+      category: { type: "choice", instructions: "What kind of post is this?", criteria: { genuine: "Genuine personal update", promo: "Promotion or ad", bait: "Viral list / engagement bait" } },
+      quality: { type: "score", instructions: "Rate post quality", criteria: ["Spam", "Low", "Okay", "Good", "Great"] }
+    }
+  }
+};
+function setPreset(name) {
+  $("state").value = PRESETS[name].state;
+  $("questions").value = JSON.stringify(PRESETS[name].questions, null, 2);
+}
+document.querySelectorAll("[data-preset]").forEach(b => b.onclick = () => setPreset(b.dataset.preset));
+setPreset("support");
+
+async function checkStatus() {
+  const base = $("server").value.replace(/\/+$/, "");
+  const pill = $("status");
+  try {
+    const r = await fetch(base + "/ready");
+    const j = await r.json();
+    if (j.status === "ready") {
+      pill.textContent = "ready · " + (j.upstream_model || "");
+      pill.className = "pill ok";
+    } else { pill.textContent = "not ready"; pill.className = "pill bad"; }
+    const m = await (await fetch(base + "/v1/models")).json();
+    $("models").textContent = (m.models || []).map(x => x.name).join(" · ");
+  } catch (e) {
+    pill.textContent = "offline — is bun run start running?";
+    pill.className = "pill bad";
+  }
+}
+$("server").onchange = checkStatus;
+
+function bar(p) {
+  const pct = Math.max(0, Math.min(1, p)) * 100;
+  return `<div class="bar"><div style="width:${pct.toFixed(1)}%"></div></div>`;
+}
+function renderAnswers(data) {
+  const box = $("answers");
+  const answers = data.answers || {};
+  let html = "";
+  for (const [key, a] of Object.entries(answers)) {
+    if (a.type === "noul") {
+      html += `<div class="ans"><h3>${key} <span class="kv">noul</span></h3>
+        <div><b>${a.noul.toFixed(3)}</b> probability yes</div>${bar(a.noul)}</div>`;
+    } else if (a.type === "choice") {
+      const rows = Object.entries(a.probabilities).sort((x, y) => y[1] - x[1])
+        .map(([k, p]) => `<div>${k}: <b>${p.toFixed(3)}</b>${bar(p)}</div>`).join("");
+      html += `<div class="ans"><h3>${key} <span class="kv">choice → ${a.choice} · conf ${a.confidence.toFixed(3)}</span></h3>${rows}</div>`;
+    } else if (a.type === "score") {
+      const rows = Object.entries(a.probabilities)
+        .map(([k, p]) => `<div>${a.legend?.[k] ?? k} (${k}): <b>${p.toFixed(3)}</b>${bar(p)}</div>`).join("");
+      html += `<div class="ans"><h3>${key} <span class="kv">score ${a.score.toFixed(2)} · conf ${a.confidence.toFixed(3)}</span></h3>${rows}</div>`;
+    }
+  }
+  if (data.usage) html += `<p class="meta">tokens in/out: ${data.usage.input_tokens}/${data.usage.output_tokens} · model: ${data.model}</p>`;
+  box.innerHTML = html || "<p class='meta'>Empty answers.</p>";
+}
+
+$("send").onclick = async () => {
+  const btn = $("send");
+  const base = $("server").value.replace(/\/+$/, "");
+  let questions;
+  try { questions = JSON.parse($("questions").value); }
+  catch (e) { $("raw").textContent = "Questions JSON invalid: " + e.message; return; }
+  const body = { model: $("model").value.trim() || "jev-latest", state: $("state").value, questions };
+  btn.disabled = true;
+  const t0 = performance.now();
+  $("timing").textContent = "sending…";
+  try {
+    const r = await fetch(base + "/v1/systemone", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const text = await r.text();
+    let data; try { data = JSON.parse(text); } catch { data = text; }
+    $("raw").textContent = (r.ok ? "" : `HTTP ${r.status}\n`) + JSON.stringify(data, null, 2);
+    if (r.ok) renderAnswers(data);
+    else $("answers").innerHTML = `<p class="err">${$("raw").textContent}</p>`;
+    $("timing").textContent = `${((performance.now() - t0) / 1000).toFixed(2)}s round-trip`;
+  } catch (e) {
+    $("raw").textContent = String(e);
+    $("answers").innerHTML = `<p class="err">Fetch failed (CORS/offline?): ${e}</p>`;
+  } finally { btn.disabled = false; checkStatus(); }
+};
+checkStatus();
+</script>
+</body>
+</html>

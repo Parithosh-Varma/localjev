@@ -1,0 +1,122 @@
+[
+  {
+    "text": "Qiusheng Wu @giswqs · 22h A sneak peek at a new GeoLibre capability for streamin",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "TypeSafe AI @typesafeai · 5h We are seeing some issues on ou",
+    "slop_p": 0.2,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Kimi Developers @KimiDevs · 1h Meet Kimi Code Desktop Drop i",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "parsec @getparsec Ad Parsec is now open source!! From github",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "shownotover @shownotover · 12h 4 new models are coming th",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Valenciana @ValencianaAbel · 19h Ling-3.0-flash-Fin Ant Grou",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Valenciana @ValencianaAbel · 19h Looking at the finance / ag",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Booyoun @booyoun · 13h Translated from Korean",
+    "slop_p": 0.99,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.98
+    }
+  },
+  {
+    "text": "Tomas Pueyo @tomaspueyo · 18h Update: We're now here And we'",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.85
+    }
+  },
+  {
+    "text": "i like food @messedupfoods · 5h there has to be right?",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "JetBrains @jetbrains Ad On the latest SWE-Rebench run, Junie",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "Ezequiel Victor @0zeyp · 11h Translated from Portuguese",
+    "slop_p": 0.99,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.98
+    }
+  },
+  {
+    "text": "Tri Ahmad Irfan @irfan3 · Sep 20 someone out there proved P",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Hank @h4nkdog · 17h I used Codex to vibe code a game on my l",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "IndiGo @IndiGo6E Ad Choose IndiGo Upfront for low cancellati",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.95
+    }
+  }
+]

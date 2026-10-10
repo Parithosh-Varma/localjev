@@ -28,6 +28,15 @@ function jsonResponse(
   return Response.json(body, { status, headers });
 }
 
+function corsHeaders(): Record<string, string> {
+  return {
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "GET, POST, OPTIONS",
+    "access-control-allow-headers": "Content-Type, Authorization",
+    "access-control-max-age": "86400",
+  };
+}
+
 function apiError(
   status: number,
   errorType: string,
@@ -102,6 +111,9 @@ export class LocalJevApp {
   }
 
   async fetch(request: Request): Promise<Response> {
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders() });
+    }
     const id = requestId();
     let response: Response;
     try {
@@ -111,6 +123,9 @@ export class LocalJevApp {
       response = apiError(500, "api_error", "Internal server error");
     }
     const headers = new Headers(response.headers);
+    for (const [key, value] of Object.entries(corsHeaders())) {
+      headers.set(key, value);
+    }
     headers.set("x-typesafe-request-id", id);
     headers.set("x-request-id", id);
     return new Response(response.body, {

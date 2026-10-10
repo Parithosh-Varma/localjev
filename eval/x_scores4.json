@@ -1,0 +1,82 @@
+[
+  {
+    "text": "Hesamation @Hesamation · 2h DeepSeek is training a 2T model, with an 8T model al",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Raksha T @rakshaa_t · 5h all use cases of jev i saved from x a thread Quote Stef",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Cloudflare @Cloudflare Ad Ship React, Vue, or NextJS apps with integrated backen",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "Avid @Av1dlive · 21h this is basically everything you need to know about buildin",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "orlie @sunglassesface · 16h I don't want to kick a man when he's down but holy f",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Mia @MiaAI_lab · 8h ZCode is now open-source! @Zai_org did it This is the way. G",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Michel van den Berg @promontis · 17h Improved the performance of my @threejs gra",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Figma @figma Ad Need a quick proof of concept? We've got you. From figma.com",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "Eric @ericadelic · 22h Nobody will ever notice this. I just wrote a script so th",
+    "slop_p": 0.2,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Qiusheng Wu @giswqs · 22h A sneak peek at a new GeoLibre capability for streamin",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  }
+]

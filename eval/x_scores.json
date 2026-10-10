@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Ananya Singh @ananyairl · 4h Convince me to uninstall Codex. You have one line.",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 0.95
+    }
+  },
+  {
+    "text": "Vladimir Bayandin @vovudebosh Ad i'm sorry, Claude can WHAT? it can take your we",
+    "slop_p": 0.95,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.93
+    }
+  },
+  {
+    "text": "shownotover @shownotover · 3h 🚨 codex users!! bug found!!! (good one!!) I litra",
+    "slop_p": 0.1,
+    "kind": {
+      "label": "not_slop",
+      "p": 0.9
+    }
+  },
+  {
+    "text": "briony @brionysayani · 7h roast my portfolio: https://briony-sayani-portfolio.ve",
+    "slop_p": 0.05,
+    "kind": {
+      "label": "not_slop",
+      "p": 1
+    }
+  },
+  {
+    "text": "Dhravya Shah @DhravyaShah · 18h I spent 3 days reverse-engineering Instinct's me",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "ai_thread",
+      "p": 0.8
+    }
+  },
+  {
+    "text": "Asmit @coolcoder56 · 2h the resume of the guy who got into rubrik with 1.2 cr pa",
+    "slop_p": 0.9,
+    "kind": {
+      "label": "engagement_bait",
+      "p": 0.85
+    }
+  }
+]

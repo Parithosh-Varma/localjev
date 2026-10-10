@@ -415,7 +415,6 @@ export class Engine implements DecisionEngine {
         temperature: this.settings.temperature,
         max_tokens: this.settings.maxOutputTokens,
         seed: (seed + attempt * 7_919) >>> 0,
-        chat_template_kwargs: { enable_thinking: false },
         response_format: {
           type: "json_schema",
           json_schema: {
